@@ -20,6 +20,11 @@ let rightpress = false;
 let leftpress = false;
 let uppress = false;
 let downpress = false;
+let brickH = 20;
+    let brickW = 60;
+    let brickX = 100;
+    let brickY = 35;
+    let bz = 1;
 
 
 
@@ -95,6 +100,7 @@ function startgame(){
         gameOver()
         x = x + dx;
         y += dy;
+        brickY += bz
         ctx.clearRect(0,0,canvas.width,canvas.height)
         drawCircle();
         drawPaddle();
@@ -104,6 +110,7 @@ function startgame(){
         let yy = document.getElementById('ii')
         yy.innerHTML = `Speed : ${speed}`
     },speed);
+    
     }
 }
 //As the name suggests this function is used to control the behaviour of the ball if it hits a certain part of the canvas.
@@ -144,11 +151,7 @@ function detectcollision(){
 }
 
 function drawBricks(){
-    let brickH = 20;
-    let brickW = 60;
-    let brickX = 100;
-    let brickY = 35;
-    let by = 2
+    
 
     for(let i = 0; i <= 3 ; i++){
         ctx.beginPath();
@@ -173,18 +176,29 @@ function drawBricks(){
                 dx = -dx
             }
         }
+        if (brickY + bz >250 || brickY + bz < 35){
+            bz = -bz
+        }
         
     }
+    
     
 }
 
 
 function gameOver(){
+    let score = document.getElementById('yy');
     if(y === canH){
         clearInterval(interval);
          setvariables()
          interval=null
+         if (playerscore > 0){
+            playerscore -= 5;
+            score.innerHTML = `Score : ${playerscore} (-5)`
+        }
      }
+     
+     
 }
 
 function drawCircle(){
