@@ -1,5 +1,5 @@
 #mycanvas{
-    margin-left: 50px;
+    margin:auto;
     border-width: 2px;
     border-style:solid;
     border-bottom-color: red;
@@ -9,3 +9,10 @@
     background-size: 100% 100%;
 }
 
+body{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

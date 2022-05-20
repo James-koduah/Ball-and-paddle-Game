@@ -5,12 +5,10 @@ canvas.width = 400;
 canvas.height = 450;
 let canW = canvas.width;
 let canH = canvas.height;
-
 //Speed sets the refresh interval to the number of miliseconds always at a default of six.(i.e sets the speed of the game)
 //The speed variable can be increased by the speedup button and decreased by the speeddown button;
 let speed = 6;
 let playerscore = 0;
-
 //For re-application in various parts of the code the variables are given set values in setvariables() function.
 //This is so that when the are changed in any part of the code they can simply be reset to their original value. 
 let x,y,dy,dx,interval,paddleY,paddleX,paddleW;
@@ -21,12 +19,10 @@ let leftpress = false;
 let uppress = false;
 let downpress = false;
 let brickH = 20;
-    let brickW = 60;
-    let brickX = 100;
-    let brickY = 35;
-    let bz = 1;
-
-
+let brickW = 60;
+let brickX = 100;
+let brickY = 35;
+let bz = 1;
 
 
 
@@ -36,7 +32,44 @@ drawPaddle();
 keyboardnavigation();
 drawBricks();
 
-//Controls the paddle movement
+
+//Starts and runs the game.
+function startgame(){
+    if (!interval){
+    interval = setInterval(() => {
+        if(rightpress){
+            paddleX = paddleX + 3;
+            
+        }
+        if(leftpress){
+            paddleX = paddleX - 3;
+        }
+        if(uppress){
+            paddleY -= 3;
+            example += 3
+        }
+        if(downpress){
+            paddleY += 3;
+            example -= 3
+        }
+        x = x + dx;
+        y += dy;
+        brickY += bz;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        detectcollision();
+        gameOver()
+        drawCircle();
+        drawPaddle();
+        drawBricks();
+        score();
+        let yy = document.getElementById('ii')
+        yy.innerHTML = `Speed : ${speed}`
+    },speed);
+    
+    }
+}
+
+//Controls the paddle movement.
 function keyboardnavigation(){
     document.addEventListener('keydown', handlekeyDown)
     document.addEventListener('keyup', handlekeyUp)
@@ -78,41 +111,8 @@ function keyboardnavigation(){
         }
 }
 }
-function startgame(){
-    if (!interval){
-    interval = setInterval(() => {
-        if(rightpress){
-            paddleX = paddleX + 3;
-            
-        }
-        if(leftpress){
-            paddleX = paddleX - 3;
-        }
-        if(uppress){
-            paddleY -= 3;
-            example += 3
-        }
-        if(downpress){
-            paddleY += 3;
-            example -= 3
-        }
-        detectcollision();
-        gameOver()
-        x = x + dx;
-        y += dy;
-        brickY += bz
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        drawCircle();
-        drawPaddle();
-        drawBricks();
-        score();
-        
-        let yy = document.getElementById('ii')
-        yy.innerHTML = `Speed : ${speed}`
-    },speed);
-    
-    }
-}
+
+
 //As the name suggests this function is used to control the behaviour of the ball if it hits a certain part of the canvas.
 function detectcollision(){
     //In the setinterval animation dx is constantly added to x.
@@ -150,9 +150,10 @@ function detectcollision(){
     } 
 }
 
+//The obstacles and their functionality.
 function drawBricks(){
     
-
+    //The number of bricks.
     for(let i = 0; i <= 3 ; i++){
         ctx.beginPath();
         ctx.rect((brickX * i) ,brickY,brickW,brickH)
@@ -185,7 +186,7 @@ function drawBricks(){
     
 }
 
-
+//When the ball touches the bottom of the canvas.
 function gameOver(){
     let score = document.getElementById('yy');
     if(y === canH){
@@ -201,6 +202,7 @@ function gameOver(){
      
 }
 
+//For the ball.
 function drawCircle(){
     ctx.beginPath();
     ctx.arc(x,y,20,0,2 * Math.PI,false)
@@ -210,6 +212,7 @@ function drawCircle(){
     ctx.closePath()
 }
 
+//For the paddle.
 function drawPaddle(){
     
     ctx.beginPath();
@@ -220,6 +223,7 @@ function drawPaddle(){
     ctx.closePath()
 }
 
+//To speed up the game.
 function speedup(){
     if(speed > 1){
         speed = speed - 1;
@@ -227,6 +231,8 @@ function speedup(){
     let yy = document.getElementById('ii')
     yy.innerHTML = `Speed : ${speed}`
 }
+
+//To reduce the speed of the game.
 function speeddown(){
     if(speed >= 1){
         speed = speed + 1;
@@ -234,6 +240,8 @@ function speeddown(){
     let yy = document.getElementById('ii')
     yy.innerHTML = `Speed : ${speed}`
 }
+
+
 function score(){
     let scor = document.getElementById('yy')
     if(y + dy < 0){
@@ -242,6 +250,7 @@ function score(){
     }
 }
 
+//To reset the variables after they have been changed during the game.
 function setvariables(){
     x=canW/2;
     y = canH - 50 ;
