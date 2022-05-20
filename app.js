@@ -15,59 +15,91 @@ let speed = 6;
 let x,y,dy,dx,interval,paddleY,paddleX,paddleW;
 let radius=30;
 let example;
-setvariables();
-
-
-document.addEventListener('keydown', handlekeyDown)
-document.addEventListener('keyup', handlekeyUp)
 let rightpress = false;
 let leftpress = false;
 let uppress = false;
 let downpress = false;
 
-//keydown means when a button is pressed.
-//As long as a button is pressed the designated variable has a value of true.
-function handlekeyDown(e){
-    if(e.key === 'ArrowRight'){
-    rightpress = true
-    }
-    if(e.key === 'ArrowLeft'){
-        leftpress = true;
-        }
-    if (e.key === 'Enter'){
-        startgame();
-    }
-    if (e.key === 'ArrowUp'){
-        uppress = true;
-        startgame();
-    }
-    if (e.key === 'ArrowDown'){
-        downpress = true;
-    }
-}
-
-//keyup means when a button is released.
-//As long as a keyboard button is not being pressed the designated variable has a value of false.
-function handlekeyUp(e){
-    if(e.key === 'ArrowRight'){
-        rightpress = false
-        }
-    if(e.key === 'ArrowLeft'){
-        leftpress = false
-        }
-    if (e.key === 'ArrowUp'){
-        uppress = false;
-    }
-    if (e.key === 'ArrowDown'){
-        downpress = false;
-    }
-}
 
 
 
+
+setvariables();
 drawCircle();
 drawPaddle();
+keyboardnavigation();
 
+function keyboardnavigation(){
+    document.addEventListener('keydown', handlekeyDown)
+    document.addEventListener('keyup', handlekeyUp)
+    //keydown means when a button is pressed.
+    //As long as a button is pressed the designated variable has a value of true.
+    function handlekeyDown(e){
+        if(e.key === 'ArrowRight'){
+        rightpress = true
+        }
+        if(e.key === 'ArrowLeft'){
+            leftpress = true;
+            }
+        if (e.key === 'Enter'){
+            startgame();
+        }
+        if (e.key === 'ArrowUp'){
+            uppress = true;
+            startgame();
+        }
+        if (e.key === 'ArrowDown'){
+            downpress = true;
+        }
+    }
+
+    //keyup means when a button is released.
+    //As long as a keyboard button is not being pressed the designated variable has a value of false.
+    function handlekeyUp(e){
+        if(e.key === 'ArrowRight'){
+            rightpress = false
+            }
+        if(e.key === 'ArrowLeft'){
+            leftpress = false
+            }
+        if (e.key === 'ArrowUp'){
+            uppress = false;
+        }
+        if (e.key === 'ArrowDown'){
+            downpress = false;
+        }
+}
+}
+function startgame(){
+    if (!interval){
+    interval = setInterval(() => {
+        if(rightpress){
+            paddleX = paddleX + 3;
+            
+        }
+        if(leftpress){
+            paddleX = paddleX - 3;
+        }
+        if(uppress){
+            paddleY -= 3;
+            example += 3
+        }
+        if(downpress){
+            paddleY += 3;
+            example -= 3
+        }
+        detectcollision();
+        gameOver()
+        x = x + dx;
+        y += dy;
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        drawCircle();
+        drawPaddle();
+        let yy = document.getElementById('ii')
+        yy.innerHTML = `Speed : ${speed}`
+    },speed);
+    }
+}
 //As the name suggests this function is used to control the behaviour of the ball if it hits a certain part of the canvas.
 function detectcollision(){
     //In the setinterval animation dx is constantly added to x.
@@ -105,36 +137,7 @@ function detectcollision(){
     } 
 }
 
-function startgame(){
-    if (!interval){
-    interval = setInterval(() => {
-        if(rightpress){
-            paddleX = paddleX + 3;
-            
-        }
-        if(leftpress){
-            paddleX = paddleX - 3;
-        }
-        if(uppress){
-            paddleY -= 3;
-            example += 3
-        }
-        if(downpress){
-            paddleY += 3;
-            example -= 3
-        }
-        detectcollision();
-        gameOver()
-        x = x + dx;
-        y += dy;
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        drawCircle();
-        drawPaddle();
-        let yy = document.getElementById('ii')
-        yy.innerHTML = `Speed : ${speed}`
-    },speed);
-    }
-}
+
 
 
 function gameOver(){
