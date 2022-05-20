@@ -1,0 +1,11 @@
+#mycanvas{
+    margin-left: 50px;
+    border-width: 2px;
+    border-style:solid;
+    border-bottom-color: rgb(13, 85, 3);
+    border-bottom-width: 5px;
+    background: url(background.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
