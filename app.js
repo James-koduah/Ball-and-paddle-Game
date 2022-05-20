@@ -9,6 +9,7 @@ let canH = canvas.height;
 //Speed sets the refresh interval to the number of miliseconds always at a default of six.(i.e sets the speed of the game)
 //The speed variable can be increased by the speedup button and decreased by the speeddown button;
 let speed = 6;
+let playerscore = 0;
 
 //For re-application in various parts of the code the variables are given set values in setvariables() function.
 //This is so that when the are changed in any part of the code they can simply be reset to their original value. 
@@ -28,7 +29,9 @@ setvariables();
 drawCircle();
 drawPaddle();
 keyboardnavigation();
+drawBricks();
 
+//Controls the paddle movement
 function keyboardnavigation(){
     document.addEventListener('keydown', handlekeyDown)
     document.addEventListener('keyup', handlekeyUp)
@@ -95,6 +98,9 @@ function startgame(){
         ctx.clearRect(0,0,canvas.width,canvas.height)
         drawCircle();
         drawPaddle();
+        drawBricks();
+        score();
+        
         let yy = document.getElementById('ii')
         yy.innerHTML = `Speed : ${speed}`
     },speed);
@@ -137,7 +143,40 @@ function detectcollision(){
     } 
 }
 
+function drawBricks(){
+    let brickH = 20;
+    let brickW = 60;
+    let brickX = 100;
+    let brickY = 35;
+    let by = 2
 
+    for(let i = 0; i <= 3 ; i++){
+        ctx.beginPath();
+        ctx.rect((brickX * i) ,brickY,brickW,brickH)
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.stroke()
+        ctx.closePath();
+        brickcollision(i);
+    }
+    
+
+    function brickcollision(i){
+        if (y + dy < (brickY + brickH)  && y + dy > brickY){
+            if(x + dx > (brickX * i) && x + dx < ((brickX * i) + brickW )){
+            dy = -dy
+            }
+        }
+        if (x + dx >= (brickX * i) && x + dx <= ((brickX * i) + brickW)){
+            if(y + dy > brickY && y + dy < (brickY + brickH )){
+                dy = -dy
+                dx = -dx
+            }
+        }
+        
+    }
+    
+}
 
 
 function gameOver(){
@@ -180,6 +219,13 @@ function speeddown(){
     }
     let yy = document.getElementById('ii')
     yy.innerHTML = `Speed : ${speed}`
+}
+function score(){
+    let scor = document.getElementById('yy')
+    if(y + dy < 0){
+        playerscore += 1;
+        scor.innerHTML = `Score : ${playerscore}`
+    }
 }
 
 function setvariables(){
