@@ -188,14 +188,14 @@ function drawBricks(){
 
 //When the ball touches the bottom of the canvas.
 function gameOver(){
-    let score = document.getElementById('yy');
+    let sce = document.getElementById('yy');
     if(y === canH){
         clearInterval(interval);
          setvariables()
          interval=null
          if (playerscore > 0){
             playerscore -= 5;
-            score.innerHTML = `Score : ${playerscore} (-5)`
+            sce.innerHTML = `Score : ${playerscore} (-5)`
         }
      }
      
@@ -244,7 +244,7 @@ function speeddown(){
 
 function score(){
     let scor = document.getElementById('yy')
-    if(y + dy < 0){
+    if(y + dy <= 0){
         playerscore += 1;
         scor.innerHTML = `Score : ${playerscore}`
     }
