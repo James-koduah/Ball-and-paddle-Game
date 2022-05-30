@@ -1,6 +1,6 @@
 #mycanvas{
     margin:auto;
-    border-width: 2px;
+    border-width: 1px;
     border-style:solid;
     border-bottom-color: red;
     border-bottom-width: 5px;
@@ -9,10 +9,12 @@
     background-size: 100% 100%;
 }
 
-body{
-    width: 90%;
+#body{
+    background-color: black;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }

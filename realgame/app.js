@@ -192,13 +192,12 @@ function gameOver(){
     if(y === canH){
         clearInterval(interval);
          setvariables()
-         interval=null
+         interval=null;
          if (playerscore > 0){
             playerscore -= 5;
             sce.innerHTML = `Score : ${playerscore} (-5)`
         }
      }
-     
      
 }
 
@@ -261,3 +260,5 @@ function setvariables(){
     paddleX = canW/2 - paddleW/2
     paddleY = canH - example;
 }
+
+    
