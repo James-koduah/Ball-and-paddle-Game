@@ -15,9 +15,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-a{
-    text-decoration: none;
-}
+
 #instruct{
     width: 50vw;
     height: 60vh;
@@ -32,6 +30,9 @@ a{
 }
 #instruct h1{
     font-size: 3vw;
+    text-decoration: none;
+}
+#instruct h1:hover{
     text-decoration: none;
 }
 #note{
