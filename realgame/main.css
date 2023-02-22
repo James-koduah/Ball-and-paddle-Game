@@ -4,7 +4,7 @@
     border-style:solid;
     border-bottom-color: red;
     border-bottom-width: 5px;
-    background: url(background.jpg);
+    background: black;
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -17,4 +17,10 @@
     justify-content: center;
     align-items: center;
     
+}
+#yy{
+    color:white
+}
+#ii{
+    color:white
 }
